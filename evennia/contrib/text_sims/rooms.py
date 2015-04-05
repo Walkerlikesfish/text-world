@@ -14,7 +14,7 @@ from evennia import TICKER_HANDLER
 from evennia import CmdSet, Command, DefaultRoom
 from evennia import utils, create_object, search_object
 from evennia import syscmdkeys, default_cmds
-from evennia.contrib.tutorial_world.objects import LightSource, TutorialObject
+from evennia.contrib.text_sims.objects import LightSource, TutorialObject
 
 # the system error-handling module is defined in the settings. We load the
 # given setting here using utils.object_from_module. This way we can use

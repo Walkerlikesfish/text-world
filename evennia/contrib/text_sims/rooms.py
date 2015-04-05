@@ -995,4 +995,4 @@ class OutroRoom(TutorialRoom):
             del character.db.puzzle_clue
             del character.db.combat_parry_mode
             del character.db.tutorial_bridge_position
-            character.tags.clear(category="tutorial_world")
+            character.tags.clear(category="text_sims")

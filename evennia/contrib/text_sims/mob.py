@@ -65,7 +65,7 @@ class Mob(tut_objects.TutorialObject):
             stationary (idling) until attacked.
         aggressive: if set, will attack Characters in
             the same room using whatever Weapon it
-            carries (see tutorial_world.objects.Weapon).
+            carries (see text_sims.objects.Weapon).
             if unset, the mob will never engage in combat
             no matter what.
         hunting: if set, the mob will pursue enemies trying
@@ -358,7 +358,7 @@ class Mob(tut_objects.TutorialObject):
             return
 
         # we use the same attack commands as defined in
-        # tutorial_world.objects.Weapon, assuming that
+        # text_sims.objects.Weapon, assuming that
         # the mob is given a Weapon to attack with.
         attack_cmd = random.choice(("thrust", "pierce", "stab", "slash", "chop"))
         self.execute_cmd("%s %s" % (attack_cmd, target))

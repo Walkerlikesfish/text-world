@@ -170,7 +170,7 @@ class CmdClimb(Command):
             ostring = "You climb %s. Having looked around, you climb down again." % self.obj.name
         self.caller.msg(ostring)
         # set a tag on the caller to remember that we climbed.
-        self.caller.tags.add("tutorial_climbed_tree", category="tutorial_world")
+        self.caller.tags.add("tutorial_climbed_tree", category="text_sims")
 
 
 class CmdSetClimbable(CmdSet):
@@ -890,7 +890,7 @@ class Weapon(TutorialObject):
 
 WEAPON_PROTOTYPES = {
     "weapon": {
-        "typeclass": "evennia.contrib.tutorial_world.objects.Weapon",
+        "typeclass": "evennia.contrib.text_sims.objects.Weapon",
         "key": "Weapon",
         "hit": 0.2,
         "parry": 0.2,
@@ -1054,13 +1054,13 @@ class WeaponRack(TutorialObject):
         pulling weapons from it indefinitely.
         """
         rack_id = self.db.rack_id
-        if caller.tags.get(rack_id, category="tutorial_world"):
+        if caller.tags.get(rack_id, category="text_sims"):
             caller.msg(self.db.no_more_weapons_msg)
         else:
             prototype = random.choice(self.db.available_weapons)
             # use the spawner to create a new Weapon from the
             # spawner dictionary, tag the caller
             wpn = spawn(WEAPON_PROTOTYPES[prototype], prototype_parents=WEAPON_PROTOTYPES)[0]
-            caller.tags.add(rack_id, category="tutorial_world")
+            caller.tags.add(rack_id, category="text_sims")
             wpn.location = caller
             caller.msg(self.db.get_weapon_msg % wpn.key)

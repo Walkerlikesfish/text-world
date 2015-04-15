@@ -14,7 +14,6 @@
 #
 # The area we are building looks like this:
 #
-
 #      ------------          ----------    
 #      |living    |          |garden  |    
 #Limbo-+   01     +----------+  02    |
@@ -27,17 +26,17 @@
 #      |          |          |        |   
 #      ------------          ----------  
 #
-
+#
 @tel #2
-
+#
 ########### Living room ##############
 @dig Living Room;tut#01
  : text_sims.rooms.TutorialRoom
 #
 @open start = tut#01
-
-# now we actually go to the living room at the beginning
+#
 start
+#
 #
 @detail desc1 = This room has a couch, chairs and TV.
 #
@@ -45,8 +44,45 @@ start
 #
 @detail desc3 = This room has two sofas, chairs and a chandelier.
 #
-@create/drop obelisk:text_sims.objects.Obelisk
+########### garden ##############
+@dig/teleport Garden;tut#02
+ : text_sims.rooms.TutorialRoom
+ = east, west
 #
-@lock obelisk = get:false()
 #
-@set obelisk/puzzle_descs = ("You can briefly make out the image of {ba woman with a blue bird{n.", "You for a moment see the visage of {ba woman on a horse{n.", "For the briefest moment you make out an engraving of {ba regal woman wearing a crown{n.", "You think you can see the outline of {ba flaming shield{n in the stone.", "The surface for a moment seems to portray {ba sharp-faced woman with white hair{n.")
+#
+@detail desc1 = This space has a swing, flowers and trees.
+#
+@detail desc2 = You have arrived at the garden. You can exercise here 
+#
+@detail desc3 = This area has plants, grass and rabbits.
+#
+########### kitchen ##############
+@dig/teleport Kitchen;tut#03
+ : text_sims.rooms.TutorialRoom
+ = south, north
+#
+#
+@detail desc1 = This room has a fridge, oven, and a sink.
+#
+@detail desc2 = You have arrived in the kitchen. You can find food and drinks here.
+#
+@detail desc3 = This living area has pizza, coke, and icecream. 
+#
+########### bedroom ##############
+@dig/teleport Bedroom;tut#04
+ : text_sims.rooms.TutorialRoom
+ = west, east
+#
+@open north = tut#01
+#
+@detail desc1 = This area has a bed, desk and a dresser.
+#
+@detail desc2 = You have arrived in the bedroom. You can rest here.
+#
+north
+#
+@open south = tut#04
+#
+#go back to limbo
+@tel #2

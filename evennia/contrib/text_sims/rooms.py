@@ -130,17 +130,16 @@ class TutorialRoom(DefaultRoom):
                 at the given detailkey.
 
         """
-        print 'in set detail'
-        if self.db.details:
-            # to keep the descriptions of the room separate from object details
-            if detailkey.startswith('desc'):
-                if 'desc' not in self.db.details:
-                    self.db.details['desc'] = {}
-                self.db.details['desc'][detailkey] = description
-            else:
-                self.db.details[detailkey.lower()] = description
+        if not self.db.details:
+            self.db.details = {}
+
+        # to keep the descriptions of the room separate from object details
+        if detailkey.startswith('desc'):
+            if 'desc' not in self.db.details:
+                self.db.details['desc'] = {}
+            self.db.details['desc'][detailkey.lower()] = description
         else:
-            self.db.details = {detailkey.lower(): description}
+            self.db.details[detailkey.lower()] = description
 
     def return_appearance(self, looker):
         """
@@ -167,6 +166,7 @@ class TutorialRoom(DefaultRoom):
 
         # get description, build string
         string = "{c%s{n\n" % self.key
+
         if self.db.details:
             randIndex = random.randint(0, len(self.db.details['desc'])-1)
             desc = self.db.details['desc'].values()[randIndex]

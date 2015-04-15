@@ -233,7 +233,10 @@ class Obelisk(TutorialObject):
         # randomly get the index for one of the descriptions
         descs = self.db.puzzle_descs
         clueindex = random.randint(0, len(descs) - 1)
-        self.db.desc = descs[clueindex]
+        # set this description, with the random extra
+        string = "The surface of the obelisk seem to waver, shift and writhe under your gaze, with " \
+                 "different scenes and structures appearing whenever you look at it. "
+        self.db.desc = string + descs[clueindex]
         # remember that this was the clue we got. The Puzzle room will
         # look for this later to determine if you should be teleported
         # or not.

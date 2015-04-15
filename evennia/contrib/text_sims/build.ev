@@ -7,7 +7,7 @@
 # To load this file, place yourself in Limbo (room #2) and load the
 # file as user #1 with
 #
-#     @batchcommand contrib.text_sims.build
+#     @batchcommand text_sims.build
 #
 # If you give the /interactive switch you can step through the
 # build process command for command.
@@ -15,21 +15,38 @@
 # The area we are building looks like this:
 #
 
-#    ------------          +--------+    
-#    |living    |          |garden  |    
-#    |   01     +----------+  02    |
-#    |          |          |        |  
-#    -----+------          +---+----+ 
-#         |                    |       
-#    +----+-----+          +---+----+
-#    |bedroom   |          |kitchen |   
-#    +   04     +----------+  03    |   
-#    |          |          |        |   
-#    +----------+          +--------+  
+#      ------------          ----------    
+#      |living    |          |garden  |    
+#Limbo-+   01     +----------+  02    |
+#      |          |          |        |  
+#      -----+------          ----+----- 
+#           |                    |       
+#      -----+------          ----+-----
+#      |bedroom   |          |kitchen |   
+#      |   04     +----------+  03    |   
+#      |          |          |        |   
+#      ------------          ----------  
 #
 
+@tel #2
+
 ########### Living room ##############
-@dig/teleport Living Room;tut#01 : text_sims.rooms.TutorialRoom
-@detail desc1 = desc1
-@detail desc2 = desc2
-@detail desc3 = desc3
+@dig Living Room;tut#01
+ : text_sims.rooms.TutorialRoom
+#
+@open start = tut#01
+
+# now we actually go to the living room at the beginning
+start
+#
+@detail desc1 = This room has a couch, chairs and TV.
+#
+@detail desc2 = You have entered the living room. You can watch TV here
+#
+@detail desc3 = This room has two sofas, chairs and a chandelier.
+#
+@create/drop obelisk:text_sims.objects.Obelisk
+#
+@lock obelisk = get:false()
+#
+@set obelisk/puzzle_descs = ("You can briefly make out the image of {ba woman with a blue bird{n.", "You for a moment see the visage of {ba woman on a horse{n.", "For the briefest moment you make out an engraving of {ba regal woman wearing a crown{n.", "You think you can see the outline of {ba flaming shield{n in the stone.", "The surface for a moment seems to portray {ba sharp-faced woman with white hair{n.")

@@ -95,7 +95,7 @@ class CmdConsume(Command):
             return
 
         reward = self.obj.at_consume()
-        self.caller.msg("You consumed %s.\n[REWARD : %d]" % (obj.name, reward))
+        self.caller.msg("You consumed %s.\n[REWARD_consume : %d]" % (obj.name, reward))
         # set a tag on the caller to remember that we climbed.
         self.caller.tags.add("tutorial_consumed", category="text_sims")
 
@@ -161,7 +161,7 @@ class CmdWatch(Command):
             return
 
         reward = self.obj.at_watch()
-        self.caller.msg("You watched %s.\n[REWARD : %d]" % (obj.name, reward))
+        self.caller.msg("You watched %s.\n[REWARD_watch : %d]" % (obj.name, reward))
         # set a tag on the caller to remember that we climbed.
         self.caller.tags.add("tutorial_watched", category="text_sims")
 
@@ -228,7 +228,7 @@ class CmdSleep(Command):
             return
 
         reward = self.obj.at_sleep()
-        self.caller.msg("You slept on %s.\n[REWARD : %d]" % (obj.name, reward))
+        self.caller.msg("You slept on %s.\n[REWARD_sleep : %d]" % (obj.name, reward))
         # set a tag on the caller to remember that we slept.
         self.caller.tags.add("tutorial_slept", category="text_sims")
 
@@ -291,7 +291,7 @@ class CmdExercise(Command):
             return
 
         reward = self.obj.at_exercise()
-        self.caller.msg("You exercised with %s.\n[REWARD : %d]" % (obj.name, reward))
+        self.caller.msg("You exercised with %s.\n[REWARD_exercise : %d]" % (obj.name, reward))
         # set a tag on the caller to remember that we climbed.
         self.caller.tags.add("tutorial_exercised", category="text_sims")
 

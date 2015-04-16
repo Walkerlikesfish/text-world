@@ -101,10 +101,10 @@ class CmdUnconnectedConnect(MuxCommand):
         session = self.caller
 
         # check for too many login errors too quick.
-        if _throttle(session, maxlim=5, timeout=5*60, storage=_LATEST_FAILED_LOGINS):
-            # timeout is 5 minutes.
-            session.msg("{RYou made too many connection attempts. Try again in a few minutes.{n")
-            return
+        # if _throttle(session, maxlim=5, timeout=5, storage=_LATEST_FAILED_LOGINS):
+        #     # timeout is 5 minutes.
+        #     session.msg("{RYou made too many connection attempts. Try again in a few minutes.{n")
+        #     return
 
         args = self.args
         # extract quoted parts

@@ -8,9 +8,11 @@ are also defined here, together with the object.
 Objects:
 
 TutorialObject
-
-Readable
-Climbable
+Consumable
+Sleepable
+Activity
+Watchable
+Exercisable
 Obelisk
 LightSource
 CrumblingWall
@@ -58,101 +60,24 @@ class TutorialObject(DefaultObject):
         self.location = self.home
 
 
-#------------------------------------------------------------
-#
-# Readable - an object that can be "read"
-#
-#------------------------------------------------------------
-
-#
-# Read command
-#
-
-class CmdRead(Command):
-    """
-    Usage:
-      read [obj]
-
-    Read some text of a readable object.
-    """
-
-    key = "read"
-    locks = "cmd:all()"
-    help_category = "TutorialWorld"
-
-    def func(self):
-        """
-        Implements the read command. This simply looks for an
-        Attribute "readable_text" on the object and displays that.
-        """
-
-        if self.args:
-            obj = self.caller.search(self.args.strip())
-        else:
-            obj = self.obj
-        if not obj:
-            return
-        # we want an attribute read_text to be defined.
-        readtext = obj.db.readable_text
-        if readtext:
-            string = "You read {C%s{n:\n  %s" % (obj.key, readtext)
-        else:
-            string = "There is nothing to read on %s." % obj.key
-        self.caller.msg(string)
-
-
-class CmdSetReadable(CmdSet):
-    """
-    A CmdSet for readables.
-    """
-    def at_cmdset_creation(self):
-        """
-        Called when the cmdset is created.
-        """
-        self.add(CmdRead())
-
-
-class Readable(TutorialObject):
-    """
-    This simple object defines some attributes and
-    """
-    def at_object_creation(self):
-        """
-        Called when object is created. We make sure to set the needed
-        Attribute and add the readable cmdset.
-        """
-        super(Readable, self).at_object_creation()
-        self.db.tutorial_info = "This is an object with a 'read' command defined in a command set on itself."
-        self.db.readable_text = "There is no text written on %s." % self.key
-        # define a command on the object.
-        self.cmdset.add_default(CmdSetReadable, permanent=True)
-
-
-
-
 
 #------------------------------------------------------------
 #
-# Climbable object
-#
-# The climbable object works so that once climbed, it sets
-# a flag on the climber to show that it was climbed. A simple
-# command 'climb' handles the actual climbing. The memory
-# of what was last climbed is used in a simple puzzle in the
-# tutorial.
-#
+# Consumable object
 #------------------------------------------------------------
 
-class CmdClimb(Command):
+class CmdConsume(Command):
     """
-    Climb an object
+    consume an object
 
     Usage:
-      climb <object>
+      eat <object>
+      drink <object>
 
-    This allows you to climb.
+    This allows you to consume.
     """
-    key = "climb"
+    key = "consume"
+    aliases = ["eat", "drink"]
     locks = "cmd:all()"
     help_category = "TutorialWorld"
 
@@ -160,38 +85,240 @@ class CmdClimb(Command):
         "Implements function"
 
         if not self.args:
-            self.caller.msg("What do you want to climb?")
+            self.caller.msg("[ERROR]")
             return
         obj = self.caller.search(self.args.strip())
         if not obj:
             return
         if obj != self.obj:
-            self.caller.msg("Try as you might, you cannot climb that.")
+            self.caller.msg("[ERROR]")
             return
-        ostring = self.obj.db.climb_text
-        if not ostring:
-            ostring = "You climb %s. Having looked around, you climb down again." % self.obj.name
-        self.caller.msg(ostring)
+
+        reward = self.obj.at_consume()
+        self.caller.msg("You consumed %s.\n[REWARD : %d]" % (obj.name, reward))
         # set a tag on the caller to remember that we climbed.
-        self.caller.tags.add("tutorial_climbed_tree", category="text_sims")
+        self.caller.tags.add("tutorial_consumed", category="text_sims")
 
 
-class CmdSetClimbable(CmdSet):
+class CmdSetConsumable(CmdSet):
     "Climbing cmdset"
     def at_cmdset_creation(self):
         "populate set"
-        self.add(CmdClimb())
+        self.add(CmdConsume())
 
 
-class Climbable(TutorialObject):
+class Consumable(TutorialObject):
     """
-    A climbable object. All that is special about it is that it has
-    the "climb" command available on it.
+    A consumable object. All that is special about it is that it has
+    the "consume" command available on it.
+    """
+
+
+    def at_object_creation(self):
+        "Called at initial creation only"
+        self.cmdset.add_default(CmdSetConsumable, permanent=True)
+        self.consume_reward = 10 #default value
+
+    def at_consume(self):
+        return self.consume_reward
+
+
+
+
+#------------------------------------------------------------
+#
+# Watchable - an object that can be "watched"
+#
+#------------------------------------------------------------
+
+#
+# Watch command
+#
+class CmdWatch(Command):
+    """
+    watch an object
+
+    Usage:
+      watch <object>
+
+    This allows you to watch.
+    """
+    key = "watch"
+    locks = "cmd:all()"
+    help_category = "TutorialWorld"
+
+    def func(self):
+        "Implements function"
+
+        if not self.args:
+            self.caller.msg("[ERROR]")
+            return
+        obj = self.caller.search(self.args.strip())
+        if not obj:
+            return
+        if obj != self.obj:
+            self.caller.msg("[ERROR]")
+            return
+
+        reward = self.obj.at_watch()
+        self.caller.msg("You watched %s.\n[REWARD : %d]" % (obj.name, reward))
+        # set a tag on the caller to remember that we climbed.
+        self.caller.tags.add("tutorial_watched", category="text_sims")
+
+
+class CmdSetWatchable(CmdSet):
+    "Watching cmdset"
+    def at_cmdset_creation(self):
+        "populate set"
+        self.add(CmdWatch())
+
+
+class Watchable(TutorialObject):
+    """
+    A watchable object. All that is special about it is that it has
+    the "watch" command available on it.
+    """
+
+
+    def at_object_creation(self):
+        "Called at initial creation only"
+        self.cmdset.add_default(CmdSetWatchable, permanent=True)
+        self.watch_reward = 10 #default value
+
+    def at_watch(self):
+        return self.watch_reward
+
+
+
+
+#------------------------------------------------------------
+#
+# Sleepable - an object that can be slept on
+#
+#------------------------------------------------------------
+
+#
+# Sleep command
+#
+
+class CmdSleep(Command):
+    """
+    sleep on an object
+
+    Usage:
+      sleep <object>
+
+    This allows you to sleep.
+    """
+    key = "sleep"
+    locks = "cmd:all()"
+    help_category = "TutorialWorld"
+
+    def func(self):
+        "Implements function"
+
+        if not self.args:
+            self.caller.msg("[ERROR]")
+            return
+        obj = self.caller.search(self.args.strip())
+        if not obj:
+            return
+        if obj != self.obj:
+            self.caller.msg("[ERROR]")
+            return
+
+        reward = self.obj.at_sleep()
+        self.caller.msg("You slept on %s.\n[REWARD : %d]" % (obj.name, reward))
+        # set a tag on the caller to remember that we slept.
+        self.caller.tags.add("tutorial_slept", category="text_sims")
+
+
+class CmdSetSleepable(CmdSet):
+    "Climbing cmdset"
+    def at_cmdset_creation(self):
+        "populate set"
+        self.add(CmdSleep())
+
+
+class Sleepable(TutorialObject):
+    """
+    A sleepable object. All that is special about it is that it has
+    the "sleep" command available on it.
+    """
+
+
+    def at_object_creation(self):
+        "Called at initial creation only"
+        self.cmdset.add_default(CmdSetSleepable, permanent=True)
+        self.sleep_reward = 10 #default value
+
+    def at_sleep(self):
+        return self.sleep_reward
+
+
+
+#------------------------------------------------------------
+#
+# Exercisable object
+#
+#------------------------------------------------------------
+
+class CmdExercise(Command):
+    """
+    Exercise with an object
+
+    Usage:
+      exercise <object>
+
+    This allows you to exercise.
+    """
+    key = "exercise"
+    aliases = ["run"]
+    locks = "cmd:all()"
+    help_category = "TutorialWorld"
+
+    def func(self):
+        "Implements function"
+
+        if not self.args:
+            self.caller.msg("[ERROR]")
+            return
+        obj = self.caller.search(self.args.strip())
+        if not obj:
+            return
+        if obj != self.obj:
+            self.caller.msg("[ERROR]")
+            return
+
+        reward = self.obj.at_exercise()
+        self.caller.msg("You exercised with %s.\n[REWARD : %d]" % (obj.name, reward))
+        # set a tag on the caller to remember that we climbed.
+        self.caller.tags.add("tutorial_exercised", category="text_sims")
+
+
+class CmdSetExercise(CmdSet):
+    "Climbing cmdset"
+    def at_cmdset_creation(self):
+        "populate set"
+        self.add(CmdExercise())
+
+
+class Exercisable(TutorialObject):
+    """
+    An exercisable object. All that is special about it is that it has
+    the "exercise" command available on it.
     """
 
     def at_object_creation(self):
         "Called at initial creation only"
-        self.cmdset.add_default(CmdSetClimbable, permanent=True)
+        self.cmdset.add_default(CmdSetExercise, permanent=True)
+        self.exercise_reward = 10 #default value
+
+    def at_exercise(self):
+        return self.exercise_reward
+
+
+
 
 
 
@@ -244,15 +371,6 @@ class Obelisk(TutorialObject):
         # call the parent function as normal (this will use
         # the new desc Attribute we just set)
         return super(Obelisk, self).return_appearance(caller)
-
-
-class Consumable(TutorialObject):
-    def at_object_creation(self):
-        self.eating_points = 10
-        self.locks.add("get:false()")
-        self.locks.add("consume:true()")
-    def at_consume(self):
-        return self.eating_points
 
 
 #------------------------------------------------------------

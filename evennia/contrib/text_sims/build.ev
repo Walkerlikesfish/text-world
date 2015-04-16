@@ -23,7 +23,7 @@
 #      -----+------          ----+-----
 #      |bedroom   |          |kitchen |   
 #      |   04     +----------+  03    |   
-#      |          |          |        |   
+#      |          |          |        |
 #      ------------          ----------  
 #
 #
@@ -44,7 +44,10 @@ start
 #
 @detail desc3 = This room has two sofas, chairs and a chandelier.
 #
-@create/drop apple:text_sims.objects.Consumable
+@create/drop tv:text_sims.objects.Watchable
+#
+@desc tv = A huge television that is great for watching games.
+#
 ########### garden ##############
 @dig/teleport Garden;tut#02
  : text_sims.rooms.TutorialRoom
@@ -58,6 +61,10 @@ start
 #
 @detail desc3 = This area has plants, grass and rabbits.
 #
+@create/drop bike:text_sims.objects.Exercisable
+#
+@desc bike = A nice shiny bike that is fun to ride.
+#
 ########### kitchen ##############
 @dig/teleport Kitchen;tut#03
  : text_sims.rooms.TutorialRoom
@@ -70,6 +77,10 @@ start
 #
 @detail desc3 = This living area has pizza, coke, and icecream. 
 #
+@create/drop apple:text_sims.objects.Consumable
+#
+@desc apple = A red juicy fruit.
+#
 ########### bedroom ##############
 @dig/teleport Bedroom;tut#04
  : text_sims.rooms.TutorialRoom
@@ -81,6 +92,15 @@ start
 #
 @detail desc2 = You have arrived in the bedroom. You can rest here.
 #
+@create/drop bed:text_sims.objects.Sleepable
+#
+@desc bed = A nice, comfortable bed with pillows and sheets.
+#
+#
+#
+#
+#
+# Go back to living room and create the last paths, before going back to limbo
 north
 #
 @open south = tut#04

@@ -9,45 +9,7 @@ from evennia.commands.default.muxcommand import MuxCommand
 # limit symbol import for API
 __all__ = ("CmdHome", "CmdLook", "CmdNick",
            "CmdInventory", "CmdGet", "CmdDrop", "CmdGive",
-           "CmdSay", "CmdPose", "CmdAccess", "CmdConsume")#, "CmdSleep", "CmdActivity", "CmdWatch")
-
-
-
-
-class CmdConsume(MuxCommand):
-    key = "consume"
-    aliases = "consume"
-    locks = "cmd:all()"
-    arg_regex = r"\s|$"
-
-    def func(self):
-        "implements the command."
-
-        caller = self.caller
-
-        if not self.args:
-            caller.msg("[ERROR]")
-            return
-        #print "general/get:", caller, caller.location, self.args, caller.location.contents
-        obj = caller.search(self.args, location=caller.location)
-        if not obj:
-            return
-        if caller == obj:
-            caller.msg("[ERROR]")
-            return
-        if not obj.access(caller, 'consume'):
-            if obj.db.get_err_msg:
-                caller.msg(obj.db.get_err_msg)
-            else:
-                caller.msg("[ERROR]")
-            return
-
-        reward = obj.at_consume()
-        caller.msg("You consumed %s.\n[%d]" % obj.name, reward)
-        caller.location.msg_contents("%s consumed %s." %
-                                        (caller.name,
-                                         obj.name),
-                                     exclude=caller)
+           "CmdSay", "CmdPose", "CmdAccess")
 
 
 

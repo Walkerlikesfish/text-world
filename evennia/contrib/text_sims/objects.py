@@ -128,6 +128,9 @@ class Readable(TutorialObject):
         self.cmdset.add_default(CmdSetReadable, permanent=True)
 
 
+
+
+
 #------------------------------------------------------------
 #
 # Climbable object
@@ -241,6 +244,15 @@ class Obelisk(TutorialObject):
         # call the parent function as normal (this will use
         # the new desc Attribute we just set)
         return super(Obelisk, self).return_appearance(caller)
+
+
+class Consumable(TutorialObject):
+    def at_object_creation(self):
+        self.eating_points = 10
+        self.locks.add("get:false()")
+        self.locks.add("consume:true()")
+    def at_consume(self):
+        return self.eating_points
 
 
 #------------------------------------------------------------

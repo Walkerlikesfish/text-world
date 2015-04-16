@@ -44,6 +44,7 @@ start
 #
 @detail desc3 = This room has two sofas, chairs and a chandelier.
 #
+@create/drop apple:text_sims.objects.Consumable
 ########### garden ##############
 @dig/teleport Garden;tut#02
  : text_sims.rooms.TutorialRoom

@@ -117,7 +117,7 @@ class Consumable(TutorialObject):
     def at_object_creation(self):
         "Called at initial creation only"
         self.cmdset.add_default(CmdSetConsumable, permanent=True)
-        self.consume_reward = 10 #default value
+        self.consume_reward = 1 #default value
 
     def at_consume(self):
         return self.consume_reward
@@ -183,7 +183,7 @@ class Watchable(TutorialObject):
     def at_object_creation(self):
         "Called at initial creation only"
         self.cmdset.add_default(CmdSetWatchable, permanent=True)
-        self.watch_reward = 10 #default value
+        self.watch_reward = 1 #default value
 
     def at_watch(self):
         return self.watch_reward
@@ -250,7 +250,7 @@ class Sleepable(TutorialObject):
     def at_object_creation(self):
         "Called at initial creation only"
         self.cmdset.add_default(CmdSetSleepable, permanent=True)
-        self.sleep_reward = 10 #default value
+        self.sleep_reward = 1 #default value
 
     def at_sleep(self):
         return self.sleep_reward
@@ -312,7 +312,7 @@ class Exercisable(TutorialObject):
     def at_object_creation(self):
         "Called at initial creation only"
         self.cmdset.add_default(CmdSetExercise, permanent=True)
-        self.exercise_reward = 10 #default value
+        self.exercise_reward = 1 #default value
 
     def at_exercise(self):
         return self.exercise_reward

@@ -5,3 +5,4 @@ evennia --init game
 cd game
 evennia migrate
 evennia -i start
+cd ..

@@ -51,7 +51,7 @@ start
 ########### garden ##############
 @dig/teleport Garden;tut#02
  : text_sims.rooms.TutorialRoom
- = east, west
+ = east;go east, west;go west
 #
 #
 #
@@ -68,7 +68,7 @@ start
 ########### kitchen ##############
 @dig/teleport Kitchen;tut#03
  : text_sims.rooms.TutorialRoom
- = south, north
+ = south;go south, north;go north
 #
 #
 @detail desc1 = This room has a fridge, oven, and a sink.
@@ -84,9 +84,9 @@ start
 ########### bedroom ##############
 @dig/teleport Bedroom;tut#04
  : text_sims.rooms.TutorialRoom
- = west, east
+ = west;go west, east;go east
 #
-@open north = tut#01
+@open north;go north = tut#01
 #
 @detail desc1 = This area has a bed, desk and a dresser.
 #
@@ -102,7 +102,7 @@ start
 # Go back to living room and create the last paths, before going back to limbo
 north
 #
-@open south = tut#04
+@open south;go south = tut#04
 #
 #go back to limbo
 @tel #2

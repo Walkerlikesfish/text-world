@@ -228,6 +228,7 @@ class ServerSession(Session):
         """
         Send Evennia -> User
         """
+
         text = text if text else ""
         if _INLINEFUNC_ENABLED and not "raw" in kwargs:
             text = parse_inlinefunc(text, strip="strip_inlinefunc" in kwargs, session=self)
@@ -239,6 +240,8 @@ class ServerSession(Session):
             text = _RE_SCREENREADER_REGEX.sub("", text)
         session = kwargs.pop('session', None)
         session = session or self
+        #@karthik
+        text += '\n<EOM>'
         self.sessionhandler.data_out(session, text=text, **kwargs)
     # alias
     msg = data_out

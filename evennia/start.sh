@@ -1,5 +1,4 @@
-cd game && evennia stop
-cd ..
+cd game && evennia stop && cd ..
 rm -rf game
 evennia --init game
 cd game

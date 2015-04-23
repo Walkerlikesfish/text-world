@@ -56,6 +56,7 @@ class TelnetProtocol(Telnet, StatefulTelnetProtocol, Session):
         self.mxp = Mxp(self)
         # keepalive watches for dead links
         self.transport.setTcpKeepAlive(1)
+
         # add this new connection to sessionhandler so
         # the Server becomes aware of it.
         self.sessionhandler.connect(self)
@@ -67,7 +68,6 @@ class TelnetProtocol(Telnet, StatefulTelnetProtocol, Session):
         # set up a keep-alive
         self.keep_alive = LoopingCall(self._write, IAC + NOP)
         self.keep_alive.start(30, now=False)
-
 
     def handshake_done(self, force=False):
         """

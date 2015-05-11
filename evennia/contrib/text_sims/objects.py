@@ -95,7 +95,7 @@ class CmdConsume(Command):
             return
 
         reward = self.obj.at_consume()
-        self.caller.msg("You consumed %s.\n[REWARD_consume : %d]" % (obj.name, reward))
+        self.caller.msg("You consumed %s.\n[REWARD_eat : %d]" % (obj.name, reward)) #IMP: string must be REWARD_eat
         # set a tag on the caller to remember that we climbed.
         self.caller.tags.add("tutorial_consumed", category="text_sims")
 

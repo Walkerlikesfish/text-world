@@ -92,6 +92,8 @@ start
 #
 @detail desc2 = You have arrived in the bedroom. You can rest here.
 #
+@detail desc3 = You see a wooden cot and a mattress on top of it.
+#
 @create/drop bed:text_sims.objects.Sleepable
 #
 @desc bed = A nice, comfortable bed with pillows and sheets.

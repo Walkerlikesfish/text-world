@@ -10,4 +10,5 @@ import evennia
 evennia._init()
 import barter, dice, extended_room, menu_login, talking_npc
 import chargen, email_login, gendersub, menusystem, slow_exit
-import text_sims, tutorial_examples
+#import text_sims, tutorial_examples
+import tutorial_world, tutorial_examples

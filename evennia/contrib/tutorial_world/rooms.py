@@ -423,7 +423,7 @@ class CmdEast(Command):
             # we have reached the far east end of the bridge.
             # Move to the east room.
             eexit = search_object(self.obj.db.east_exit)
-            caller.msg("[REWARD_bridge : 1]")
+            caller.msg("[REWARD_bridge : 0.5]")
             if eexit:
                 caller.move_to(eexit[0])
             else:
@@ -945,9 +945,9 @@ class TeleportRoom(TutorialRoom):
             return
         # perform the teleport
         if is_success:
-            character.msg(self.db.success_teleport_msg+"\n[REWARD_success : 10]")
+            character.msg(self.db.success_teleport_msg+"\n[REWARD_success : 1]")
         else:
-            character.msg(self.db.failure_teleport_msg+"\n[REWARD_fail : -1]")
+            character.msg(self.db.failure_teleport_msg+"\n[REWARD_fail : 0]")
         # teleport quietly to the new place
         character.move_to(results[0], quiet=True, move_hooks=False)
 

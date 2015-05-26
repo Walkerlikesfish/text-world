@@ -423,7 +423,7 @@ class CmdEast(Command):
             # we have reached the far east end of the bridge.
             # Move to the east room.
             eexit = search_object(self.obj.db.east_exit)
-            caller.msg("[REWARD_bridge : 0.5]")
+            caller.msg("[REWARD_bridge : 5]")
             if eexit:
                 caller.move_to(eexit[0])
             else:
@@ -532,11 +532,12 @@ class CmdLookBridge(Command):
 
         # there is a chance that we fall if we are on the western or central
         # part of the bridge.
-        if bridge_position < 3 and random.random() < 0.0 and not self.caller.is_superuser:
+        #if bridge_position < 3 and random.random() < 0.05 and not self.caller.is_superuser:
+        if random.random() < 0.05 and not self.caller.is_superuser: #can fall anywhere from bridge
             # we fall 5% of time.
             fall_exit = search_object(self.obj.db.fall_exit)
             if fall_exit:
-                self.caller.msg("{r%s{n\n[REWARD_fall : %d]" % (FALL_MESSAGE, -1))
+                self.caller.msg("{r%s{n\n[REWARD_fall : %d]" % (FALL_MESSAGE, -0.5))
                 self.caller.move_to(fall_exit[0], quiet=True)
                 # inform others on the bridge
                 self.obj.msg_contents("A plank gives way under %s's feet and " \
@@ -945,7 +946,7 @@ class TeleportRoom(TutorialRoom):
             return
         # perform the teleport
         if is_success:
-            character.msg(self.db.success_teleport_msg+"\n[REWARD_success : 1]")
+            character.msg(self.db.success_teleport_msg+"\n[REWARD_success : 10]")
         else:
             character.msg(self.db.failure_teleport_msg+"\n[REWARD_fail : 0]")
         # teleport quietly to the new place

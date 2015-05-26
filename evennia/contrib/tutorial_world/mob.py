@@ -367,7 +367,7 @@ class Mob(tut_objects.TutorialObject):
         if target.db.health <= 0:
             # we reduced the target to <= 0 health. Move them to the
             # defeated room
-            target.msg(self.db.defeat_msg)
+            target.msg(self.db.defeat_msg+"\n[REWARD_losebattle : -0.25]")
             self.location.msg_contents(self.db.defeat_msg_room % target.key, exclude=target)
             send_defeated_to = search_object(self.db.send_defeated_to)
             if send_defeated_to:
@@ -391,11 +391,13 @@ class Mob(tut_objects.TutorialObject):
             else:
                 self.location.msg_contents(self.db.hit_msg)
             self.db.health -= damage
+            #@karthik
+            attacker.msg("[REWARD_hit : 1]")
 
         # analyze the result
         if self.db.health <= 0:
             # we are dead!
-            attacker.msg(self.db.death_msg)
+            attacker.msg(self.db.death_msg+"\n[REWARD_winbattle : 2.5]")
             self.set_dead()
         else:
             # still alive, start attack if not already attacking

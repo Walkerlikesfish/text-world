@@ -1063,4 +1063,4 @@ class WeaponRack(TutorialObject):
             wpn = spawn(WEAPON_PROTOTYPES[prototype], prototype_parents=WEAPON_PROTOTYPES)[0]
             caller.tags.add(rack_id, category="tutorial_world")
             wpn.location = caller
-            caller.msg(self.db.get_weapon_msg % wpn.key + "[REWARD_weapon = 1]")
+            caller.msg(self.db.get_weapon_msg % wpn.key + "[REWARD_weapon = 5]")

@@ -533,11 +533,11 @@ class CmdLookBridge(Command):
         # there is a chance that we fall if we are on the western or central
         # part of the bridge.
         #if bridge_position < 3 and random.random() < 0.05 and not self.caller.is_superuser:
-        if random.random() < 0.1 and not self.caller.is_superuser: #can fall anywhere from bridge
+        if random.random() < 0.05 and not self.caller.is_superuser: #can fall anywhere from bridge
             # we fall 5% of time.
             fall_exit = search_object(self.obj.db.fall_exit)
             if fall_exit:
-                self.caller.msg("{r%s{n\n[REWARD_fall : %d]" % (FALL_MESSAGE, -0.5))
+                self.caller.msg("{r%s{n\n[REWARD_fall : %f]" % (FALL_MESSAGE, -0.5))
                 self.caller.move_to(fall_exit[0], quiet=True)
                 # inform others on the bridge
                 self.obj.msg_contents("A plank gives way under %s's feet and " \

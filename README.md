@@ -5,7 +5,7 @@ Setting up
 3. Run `start.sh <n>` to start up `n` different game servers - each server will use a different port.   
 During server start, you will be asked to provide username and password - make sure this matches the framework code
 (the defaults are root and root for both username and password)  
-4. Use telnet localhost <gameport> to connect to the game server. The default game ports start from 4001 for the first game server, 
+4. Use `telnet localhost <gameport>` to connect to the game server. The default game ports start from 4001 for the first game server, 
 4002 for the next and so on. 
 5. Login using the username and password you provided and then run the following command(s) to setup the game environment:  
   @batchcommand text_sims.build for the Home world (use branch `master` for this)  

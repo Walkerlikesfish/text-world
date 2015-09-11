@@ -1,4 +1,4 @@
-Setting up the Evennia server
+Setting up
 ---------------------
 1. Clone this repository and follow instructions in INSTALL.md to install evennia up till the 'Evennia package install' section.  
 2. Change directory using `cd evennia/`.  

@@ -13,3 +13,5 @@ During server start, you will be asked to provide username and password - make s
   
 Now, the server and the game should be fully setup. You can test by logging in using telnet
 and trying to play the game (make sure you know what the commands are).
+
+You can stop the game servers by using `stop.sh`.

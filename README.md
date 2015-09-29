@@ -1,6 +1,6 @@
 Setting up
 ---------------------
-1. Clone this repository and follow instructions in INSTALL.md to install Evennia up until the 'Evennia package install' section.  
+1. Clone this repository and follow instructions in INSTALL.md to install Evennia.
 2. Change directory using `cd evennia/`.  
 3. Run `start.sh <n>` to start up `n` different game servers - each server will use a different port.   
 During server start, you will be asked to provide username and password - make sure this matches the framework code

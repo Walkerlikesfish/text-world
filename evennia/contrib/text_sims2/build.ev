@@ -1,0 +1,109 @@
+#
+# Evennia batchfile - text_sims
+#
+# Griatch 2011, 2015
+# Text-sims world 1
+#
+# To load this file, place yourself in Limbo (room #2) and load the
+# file as user #1 with
+#
+#     @batchcommand text_sims.build
+#
+# If you give the /interactive switch you can step through the
+# build process command for command.
+#
+# The area we are building looks like this:
+#
+#      ------------          ----------    
+#      |kitchen   |          |living  |
+#Limbo-+   01     +----------+  02    |
+#      |          |          |        |  
+#      -----+------          ----+----- 
+#           |                    |       
+#      -----+------          ----+-----
+#      |garden    |          |bedroom |
+#      |   04     +----------+  03    |   
+#      |          |          |        |
+#      ------------          ----------  
+#
+#
+@tel #2
+#
+########### kitchen ##############
+@dig Kitchen;tut#01
+ : text_sims.rooms.TutorialRoom
+#
+@open start = tut#01
+#
+start
+#
+#
+@detail desc1 = This room has a fridge, oven, and a sink.
+#
+@detail desc2 = You have arrived in the kitchen. You can find food and drinks here.
+#
+@detail desc3 = This living area has pizza, coke, and icecream.
+#
+@create/drop apple:text_sims.objects.Consumable
+#
+@desc apple = A red juicy fruit.
+#
+########### Living room ##############
+@dig/teleport Living Room;tut#02
+ : text_sims.rooms.TutorialRoom
+  = east;go east, west;go west
+#
+@detail desc1 = This room has a couch, chairs and TV.
+#
+@detail desc2 = You have entered the living room. You can watch TV here
+#
+@detail desc3 = This room has two sofas, chairs and a chandelier.
+#
+@create/drop tv:text_sims.objects.Watchable
+#
+@desc tv = A huge television that is great for watching games.
+#
+########### bedroom ##############
+@dig/teleport Bedroom;tut#03
+ : text_sims.rooms.TutorialRoom
+    = south;go south, north;go north
+#
+#
+@detail desc1 = This area has a bed, desk and a dresser.
+#
+@detail desc2 = You have arrived in the bedroom. You can rest here.
+#
+@detail desc3 = You see a wooden cot and a mattress on top of it.
+#
+@create/drop bed:text_sims.objects.Sleepable
+#
+@desc bed = A nice, comfortable bed with pillows and sheets.
+#
+#
+########### garden ##############
+@dig/teleport Garden;tut#04
+ : text_sims.rooms.TutorialRoom
+  = west;go west, east;go east
+#
+#
+@open north;go north = tut#01
+#
+@detail desc1 = This space has a swing, flowers and trees.
+#
+@detail desc2 = You have arrived at the garden. You can exercise here
+#
+@detail desc3 = This area has plants, grass and rabbits.
+#
+@create/drop bike:text_sims.objects.Exercisable
+#
+@desc bike = A nice shiny bike that is fun to ride.
+#
+#
+#
+# Go back to kitchen and create the last paths, before going back to limbo
+north
+#
+@open south;go south = tut#04
+#
+#go back to limbo
+@tel #2

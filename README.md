@@ -15,19 +15,18 @@ otherwise install this separately (in linux it's usually found as the
 Setting up games
 ---------------------
 1. Clone this repository.
-2. Change directory using `cd evennia/`.  
-3. Run `pip install -e .` 
+2. Run `pip install -e .` 
 (note the period "." at the end, this tells pip to install from the
 current directory). This will install Evennia and all its dependencies and make the `evennia`
 command available on the command line. You can find Evennia's
-dependencies in `evennia/requirements.txt`. 
-
-3. Run `start.sh <n>` to start up `n` different game servers - each server will use a different port.   
+dependencies in `evennia/requirements.txt`.  
+3. Change directory using `cd evennia/`.  
+4. Run `start.sh <n>` to start up `n` different game servers - each server will use a different port.   
 During server start, you will be asked to provide username and password - make sure this matches the framework code
 (the defaults are root and root for both username and password)  
-4. Use `telnet localhost <gameport>` to connect to the game server. The default game ports start from 4001 for the first game server, 
+5. Use `telnet localhost <gameport>` to connect to the game server. The default game ports start from 4001 for the first game server, 
 4002 for the next and so on. 
-5. Login using the username and password you provided and then run the following command(s) to setup the game environment:  
+6. Login using the username and password you provided and then run the following command(s) to setup the game environment:  
   @batchcommand text_sims.build for the Home world (use branch `master` for this)  
   @batchcommand tutorial_world.build for the Fantasy world (use branch `fantasy` for this)  
   
